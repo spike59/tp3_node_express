@@ -1,0 +1,12 @@
+[
+    {
+        "id":1,
+        "fullname":"peter parker",
+        "email":"spiderman@avengers.com"
+    },
+    {
+        "id":2,
+        "fullname":"spike spiegel",
+        "email":"cowboy@bebop.fr"
+    }
+]

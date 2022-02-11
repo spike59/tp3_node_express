@@ -1,33 +1,24 @@
-console.log("hello node");
 const express = require("express");
-const router = express.Router();
+const routers = require('./api/routers');
+
+
+console.log(routers)
 
 const app = express();
+
 const cors = require("cors");
 const corsOptions = {
-    origin:["http://localhost:3000"]
-}
+    origin: ["http://localhost:3000"]
+};
 app.use(cors(corsOptions));
 
+app.use(express.json());
 
-app.use(router);
+for(const route in routers){
+  app.use(`/${route}`, new routers[route]().router);
+}
 
-router.route("/")
-.get((req,res) => {
-    console.log("Get /");
-    res.send("Welcome to node Express App")
-})
-.post((req,res) => {
-    console.log("post /");
-    res.send(req.method + req.path);
-});
-
-router.route("/test").get((req,res) => {
-    console.log("Get /");
-    res.send(req.method + req.path);
-});
-
-const PORT = 5500;
-app.listen(PORT, ()=>{
-    console.log(`server is running on port ${PORT} `,'<a href="localhost:5500" >server</a>')
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
