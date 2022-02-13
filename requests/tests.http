@@ -2,13 +2,13 @@
 
 # POST http://localhost:5500
 
-# POST http://localhost:5500/form
-# Content-Type: application/json
+POST http://localhost:5000/form
+Content-Type: application/json
 
-# {
-#     "email":"test",
-#     "password":"truc",
-#     "message":"blabla"
-# }
+{
+    "email":"test",
+    "password":"truc",
+    "message":"blabla"
+}
 
-GET http://localhost:5000/product
+# GET http://localhost:5000/gender

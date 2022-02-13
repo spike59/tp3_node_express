@@ -14,8 +14,10 @@ class BaseRouter{
     initializeRoutes = () => {
 
         // /category ou /gender
-        this.router.get('/',(req, res) => {
-            res.send(this.ct.index());
+        this.router.get('/',async (req, res) => {
+            this.response = await this.ct.index();
+            console.log("response",this.response)
+            res.send(this.response);
             //res.send(`get all rows of ${this.table}`);
         })
         
