@@ -31,8 +31,22 @@ class BaseService {
         console.log("service get all");
         let sql = `SELECT * from ${this.tableName}`;
         const rows =  await BaseService.#query(sql);
+        console.log("return rows",rows);
         return rows;
     }
- 
+    async getOne(){
+        console.log("service get one");
+        let sql = `SELECT * from ${this.tableName}`;
+        const rows =  await BaseService.#query(sql);
+        console.log("return rows",rows[0]);
+        return rows[0];
+    }
+    async getOneBySql(sql){
+        console.log("service get one by sql");
+        //let sql = `SELECT * from ${this.tableName}`;
+        const rows =  await BaseService.#query(sql);
+        console.log("return rows",rows[0]);
+        return rows[0];        
+    }
 }
 module.exports = BaseService;

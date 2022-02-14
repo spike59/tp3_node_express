@@ -3,3 +3,5 @@ INSERT INTO `gender` (`id`, `title`) VALUES (NULL, 'hommes'), (NULL, 'femmes'), 
 INSERT INTO `category` (`id`, `title`) VALUES (NULL, 'pantalons'), (NULL, 't-shirts'), (NULL, 'pulls'), (NULL, 'chaussures'), (NULL, 'sous-vetements'), (NULL, 'accessoires');
 
 INSERT INTO `product` (`id`, `title`, `description`, `image`, `price`, `gender_id`, `category_id`) VALUES (NULL, 'pantalon1', 'blabla', 'product-01.jpg', '15.00', '1', '3');
+
+INSERT INTO `app_user` (`id`, `email`, `password`, `is_active`, `role`) VALUES (NULL, 'machin@a.net', 'truc', NULL, 'Admin');

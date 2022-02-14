@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "test_mysql": "node config/test_connect.js"
+    "test_mysql": "node config/test_connect.js",
+    "clear_db":"node config/clear_db.js",
+    "create_db":"node config/create_db.js",
+    "create_tables":"node config/create_tables.js",
+    "populate_tables":"node config/populate_db.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +18,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "express-jwt": "^6.1.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "util": "^0.12.4"

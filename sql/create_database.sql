@@ -10,12 +10,12 @@ CREATE TABLE gender(
    PRIMARY KEY(id)
 );
 
-CREATE TABLE appuser(
+CREATE TABLE app_user(
    id INT AUTO_INCREMENT,
-   login VARCHAR(50),
+   email VARCHAR(50),
    password VARCHAR(50),
    is_active VARCHAR(50),
-   role VACHAR(50),
+   role VARCHAR(50),
    PRIMARY KEY(id)
 );
 

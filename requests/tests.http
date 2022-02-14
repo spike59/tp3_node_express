@@ -2,13 +2,29 @@
 
 # POST http://localhost:5500
 
-POST http://localhost:5000/form
+# POST http://localhost:5000/form
+# Content-Type: application/json
+
+# {
+#     "email":"test",
+#     "password":"truc",
+#     "message":"blabla"
+# }
+
+# GET http://localhost:5000/gender
+
+POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email":"test",
-    "password":"truc",
-    "message":"blabla"
+    "email":"machin@a.net",
+    "password":"truc"
 }
 
-# GET http://localhost:5000/gender
+# POST http://localhost:5000/auth/login
+# Content-Type: application/json
+
+# {
+#     "email":"b@b.com",
+#     "password":"bb"
+# }
