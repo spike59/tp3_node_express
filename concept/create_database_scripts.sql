@@ -15,6 +15,7 @@ CREATE TABLE appuser(
    login VARCHAR(50),
    password VARCHAR(50),
    is_active VARCHAR(50),
+   role VACHAR(50),
    PRIMARY KEY(id)
 );
 

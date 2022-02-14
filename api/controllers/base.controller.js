@@ -23,6 +23,11 @@ class BaseController {
         let data = await service.getAll();
         return data;
     }
+    new =async () => {
+        let allData= await this.serviceClass.getAll();
+
+        return data;        
+    }
 
 }
 module.exports = BaseController;

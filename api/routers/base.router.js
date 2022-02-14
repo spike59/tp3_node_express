@@ -26,19 +26,21 @@ class BaseRouter{
             res.send(`get ${this.table} row with id=${req.params.id}`);
         })
 
-        
+        //create new
         this.router.post('/',(req, res) => {
-            res.send(`create new ${this.table} row with values : ${JSON.stringify(req.body)}`);
+            let response = this.ct.new();
+            res.send(response);
+            //res.send(`create new ${this.table} row with values : ${JSON.stringify(req.body)}`);
         })
-        
+        //update id
         this.router.put('/:id',(req, res) => {
             res.send(`update ${this.table} row with id=${req.params.id} with values : ${JSON.stringify(req.body)}`);
         })
-        
+        //soft delete id
         this.router.patch('/:id',(req, res) => {
             res.send(`soft delete ${this.table} row with id=${req.params.id}`);
         })
-        
+        //hard delete id
         this.router.delete('/:id',(req, res) => {
             res.send(`hard delete ${this.table} row with id=${req.params.id}`);
         })
