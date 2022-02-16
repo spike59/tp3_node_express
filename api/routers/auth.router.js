@@ -24,7 +24,7 @@ class AuthRouter extends BaseRouter {
                 .catch(err => next(err));
         }
         function getAllUsers(req,res,next){
-            usersService.getAll()
+            usersService.getAllUsers()
             .then(users => res.json(users))
             .catch(err=>next(err));
         }
@@ -36,7 +36,7 @@ class AuthRouter extends BaseRouter {
                 return res.status(401).json({message:'unauthorized'});
             }
 
-            usersService.getOne(req.params.id)
+            usersService.getOneUser(req.params.id)
             .then(user => user ? res.json(user):res.sendStatus(404))
             .catch(err=>next(err));
         }

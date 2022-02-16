@@ -36,11 +36,11 @@ CREATE TABLE customer(
    id INT AUTO_INCREMENT,
    fullname VARCHAR(255),
    email VARCHAR(255) NOT NULL,
-   appuser_id INT NOT NULL,
+   app_user_id INT NOT NULL,
    PRIMARY KEY(id),
-   UNIQUE(appuser_id),
+   UNIQUE(app_user_id),
    UNIQUE(email),
-   FOREIGN KEY(appuser_id) REFERENCES appuser(id)
+   FOREIGN KEY(app_user_id) REFERENCES app_user(id)
 );
 
 CREATE TABLE command(
