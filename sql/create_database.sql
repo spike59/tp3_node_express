@@ -15,7 +15,7 @@ CREATE TABLE app_user(
    email VARCHAR(50),
    password VARCHAR(50),
    is_active VARCHAR(50),
-   role VARCHAR(50),
+   role VARCHAR(50) NOT NULL,
    PRIMARY KEY(id)
 );
 

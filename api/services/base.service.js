@@ -46,7 +46,12 @@ class BaseService {
         //let sql = `SELECT * from ${this.tableName}`;
         const rows =  await BaseService.#query(sql);
         console.log("return rows",rows[0]);
-        return rows[0];        
+        if (rows.length == 1){
+            return rows[0]
+        }
+        else{
+            return null
+        }     
     }
 }
 module.exports = BaseService;

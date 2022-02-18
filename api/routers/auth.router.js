@@ -11,35 +11,19 @@ class AuthRouter extends BaseRouter {
         console.log("this user service",this.usersService);
         this.add_routes(this.usersService)
     }
-    add_routes = (usersService) => {    
-        this.router.post('/login',authenticate )
-        this.router.get('/',authorize(Role.Admin),getAllUsers);
-        this.router.get('/:id',authorize(),getById);
+    add_routes = () => {
+        //this.router.post('/register',this.ct.register );
+        this.router.post('/register',async (req,res)=>{
+            const response = await this.ct.register(req,res);
+            //console.log("response ", response);
+            res.status(response.status||200).json(response.data);
+        } );
+        this.router.post('/login',this.ct.authenticate );
 
-        function authenticate(req,res,next){
-            console.log("services",services);
-            console.log("this user service2",usersService);
-            usersService.authenticate(req.body)
-                .then(user => user ? res.json(user):res.status(400).json({message:"username or password invalid"}))
-                .catch(err => next(err));
-        }
-        function getAllUsers(req,res,next){
-            usersService.getAllUsers()
-            .then(users => res.json(users))
-            .catch(err=>next(err));
-        }
-        function getById(req,res,next){
-            const currentUser = req.user;
-            const id = parseInt(req.params.id)
 
-            if (id !== currentUser.sub && currentUser.role !== Role.Admin){
-                return res.status(401).json({message:'unauthorized'});
-            }
 
-            usersService.getOneUser(req.params.id)
-            .then(user => user ? res.json(user):res.sendStatus(404))
-            .catch(err=>next(err));
-        }
+        this.router.get('/',authorize(Role.Admin),this.ct.getAllUsers);
+        this.router.get('/:id',authorize(),this.ct.getUser);
     }
 }
 

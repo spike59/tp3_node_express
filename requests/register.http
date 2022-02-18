@@ -1,0 +1,15 @@
+# POST http://localhost:5000/auth/register
+# Content-Type: application/json
+
+# {
+#     "email":"machin@a.net",
+#     "password":"truc"
+# }
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "email":"user@user.fr",
+    "password":"user"
+}

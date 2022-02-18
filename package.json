@@ -7,19 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "test_mysql": "node config/test_connect.js",
-    "clear_db":"node config/clear_db.js",
-    "create_db":"node config/create_db.js",
-    "create_tables":"node config/create_tables.js",
-    "populate_tables":"node config/populate_db.js"
+    "clear_db": "node config/clear_db.js",
+    "create_db": "node config/create_db.js",
+    "create_tables": "node config/create_tables.js",
+    "populate_tables": "node config/populate_db.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-jwt": "^6.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
     "util": "^0.12.4"
   }
