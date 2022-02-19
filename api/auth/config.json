@@ -1,3 +1,4 @@
 {
-    "secret": "nous sommes en formation CDA!, c'est un secret trés trés trés trés long"
+    "secret": "nous sommes en formation CDA!, c'est un secret trés trés trés trés long",
+    "HASH_PREFIX":"$2b$10$"
 }

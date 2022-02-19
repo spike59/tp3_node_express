@@ -1,3 +1,4 @@
+require("./api/helpers/string.helper");
 const express = require("express");
 const routers = require('./api/routers');
 const errorHandler = require('./api/helpers/error_handler');
@@ -22,10 +23,10 @@ for(const route in routers){
 app.use(errorHandler);
 
 //TEST
-const mailerService = new MailerService();
-mailerService.sendMail({})
-const mailer = MailerService.sendMail({to:"bedulaurent@gmail.com", subject:"Validation de compte", html:'<button>Valider l\'inscription</button>'});
-console.log();
+// const mailerService = new MailerService();
+// mailerService.sendMail({})
+// const mailer = MailerService.sendMail({to:"bedulaurent@gmail.com", subject:"Validation de compte", html:'<button>Valider l\'inscription</button>'});
+// console.log();
 
 
 

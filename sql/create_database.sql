@@ -14,8 +14,9 @@ CREATE TABLE app_user(
    id INT AUTO_INCREMENT,
    email VARCHAR(50),
    password VARCHAR(50),
-   is_active VARCHAR(50),
+   token VACHAR(255),
    role VARCHAR(50) NOT NULL,
+   deleted BOOLEAN NULL DEFAULT NULL,
    PRIMARY KEY(id)
 );
 

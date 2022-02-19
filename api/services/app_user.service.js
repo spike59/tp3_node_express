@@ -25,9 +25,12 @@ class App_userService extends BaseService{
             return hash;
         });
         console.log("hash",adminpwd);
+        //adminpwd = adminpwd.replace("$2b$10$","");
+        console.log("hash",adminpwd);
         if (user){
-            //console.log("user");           
-            let usertest = Bcrypt.compareSync(password,user.password);
+            //console.log("user"); 
+            let userCompletePassword = "$2b$10$" + user.password;
+            let usertest = Bcrypt.compareSync(password,userCompletePassword);
             //console.log("aprés b crypt",usertest);
             if (usertest){
                 const token = jwt.sign({sub:user.id,role:user.role},config.secret)

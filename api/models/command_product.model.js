@@ -1,6 +1,6 @@
-import { BaseModel } from "./baseModel.model.js";
+const  BaseModel = require( "./base.Model");
 
-export class Command_product extends BaseModel{
+class Command_productModel extends BaseModel{
 
     constructor(props){
         super(props);
@@ -13,3 +13,4 @@ export class Command_product extends BaseModel{
     command_id = 0;
 
 }
+module.exports = Command_productModel;

@@ -1,6 +1,7 @@
-import { BaseModel } from "./baseModel.model.js";
 
-export class Category extends BaseModel{
+const  BaseModel = require( "./base.Model");
+
+class CategoryModel extends BaseModel{
 
     constructor(props){
         super(props);
@@ -13,3 +14,4 @@ export class Category extends BaseModel{
     image = "";
 
 }
+module.exports = CategoryModel;

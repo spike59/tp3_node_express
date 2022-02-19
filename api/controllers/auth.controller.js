@@ -4,7 +4,8 @@ const services = require('../services');
 //const authorize = require("../auth/authorize");
 const Role = require("../auth/role");
 const jwt = require('jsonwebtoken');
-const { secret } = require('../auth/config.json');
+const { secret,HASH_PREFIX } = require('../auth/config.json');
+const bcrypt = require('bcrypt');
 const MailerService = require('../services/mailer.service');
 class AuthController {
 //class AuthController extends BaseController{
@@ -19,7 +20,7 @@ class AuthController {
         const user = await usersService.getOneUserByMail(req.body.email);
         console.log("user ",user);
         if (!user){
-            const payload = {mail: req.body.email, role: 1};
+            const payload = {mail: req.body.email, role: "User", password: req.body.password};
             const token = jwt.sign(payload, secret, { expiresIn: '1d' });
             //SEND MAIL
             const html = 
@@ -39,66 +40,33 @@ class AuthController {
         }
         return res.status(404).json({ message: 'utilisateur existant' });
     }
-    async registerOld(req,res,next){
+
+    validate = async (req,res) => {
         if(req.method !== 'POST') return {status:405};
-        console.log("register",req.body);
         
-        let usersService = new  services["app_user"]();
-        console.log("this user service2",usersService);
-        const currentUser = req.user;
-        const id = parseInt(req.params.id)        
-        //const user = this.getUser(req.body.email);
-        usersService.getOneUserByMail(req.body.email)
-        .then(user => {
-            //user ? res.json(user):res.sendStatus(404)
-            if (!user){
-
-                const payload = {mail: req.body.email, role: 1};
-                const token = jwt.sign(payload, secret, { expiresIn: '1d' });
-                //SEND MAIL
-                const html = 
-                `
-                <b>Confirmez votre inscription : </b>
-                <a href="http://localhost:3000/account/validation?t=${encodeURIComponent(token)}" target="_blank">Confirmer</a>
-                
-                `;
-                MailerService.sendMail({to: req.body.email, subject:"Confirmer votre inscription", html})
-                .then(result=>{
-                    console.log("mail service result",result);
-                    if (result)
-                    {
-                        return res.json({"message":"ok register mail envoyé"})
-                    }
-                    //res.sendStatus(404);
-                });
-                
-
-            }
-            return false
-        })
-        .catch(err=>next(err));
-        // if(!user){
-        //     const payload = {mail: req.body.email, role: 1};
-        //     const token = jwt.sign(payload, appConfig.JWT_SECRET, { expiresIn: '1d' });
-        //     //SEND MAIL
-        //     const html = 
-        //     `
-        //     <b>Confirmez votre inscription : </b>
-        //     <a href="http://localhost:3000/account/validation?t=${encodeURIComponent(token)}" target="_blank">Confirmer</a>
-            
-        //     `;
-        //     this.sendMail(req,res).then(
-        //         result=>{
-        //             return true
-        //         }
-        //     )
-        //     //return true;
-        // }
-        return false;        
+        const token = req.body.token;
+        let payload;
+        try{
+            payload = jwt.verify(token, secret); 
+        }
+        catch{
+            return {data:{completed:false, message:"Une erreur est survenue ..."}};
+        }
+        if(payload){
+            //const service = new UserServiceClass();
+            console.log("payload",payload);
+            let usersService = new  services["app_user"]();
+            const password = (await bcrypt.hash(payload.password,10)).replace(HASH_PREFIX,'')
+            const user = await usersService.insert({email:payload.mail, password, role:payload.role}).catch(e=>{
+                console.log("ERRRO SQL INSERT USER",e);
+            });
+            return user ? 
+                {data:{completed:true, message:"Bienvenu sur shoponline ! Votre compte est maintennant actif, vous pouvez vous connecter."}} :
+                {data:{completed:false, message:"Une erreur est survenue ..."}};
+        }
+        return {data:{completed:false, message:"L'activation de votre compte a expiré, réinscrivez vous ..."}};
     }
-    async sendMail(req,res){
-       
-    }
+
     
     authenticate(req,res,next){
         console.log("services",services);
