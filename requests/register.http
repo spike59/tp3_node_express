@@ -14,9 +14,18 @@
 #     "password":"user"
 # }
 
-POST http://localhost:5000/auth/validate
+POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoiZmZAZmYuZnIiLCJyb2xlIjoiVXNlciIsInBhc3N3b3JkIjoiZmYiLCJpYXQiOjE2NDUxOTkxNDMsImV4cCI6MTY0NTI4NTU0M30.kTWAQHkJCcaX1ckP05TV4IpPiT35J2LaNN6wlUOoCHE"
+    "email":"tt@tt.fr",
+    "password":"tt"
 }
+
+
+# POST http://localhost:5000/auth/validate
+# Content-Type: application/json
+
+# {
+#     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoiZmZAZmYuZnIiLCJyb2xlIjoiVXNlciIsInBhc3N3b3JkIjoiZmYiLCJpYXQiOjE2NDUxOTkxNDMsImV4cCI6MTY0NTI4NTU0M30.kTWAQHkJCcaX1ckP05TV4IpPiT35J2LaNN6wlUOoCHE"
+# }

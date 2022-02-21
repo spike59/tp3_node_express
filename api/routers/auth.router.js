@@ -18,12 +18,31 @@ class AuthRouter extends BaseRouter {
             //console.log("response ", response);
             res.status(response.status||200).json(response.data);
         } );
+
         this.router.post('/login',this.ct.authenticate );
+        this.router.get('/validate',async (req,res)=>{
+            return (res.status(404).json({message:"erreur get sur validate"}))
+            }
+        );
+        // this.router.post('/validate',async (req,res)=>{
+        //     return (res.status(404).json({message:"erreur post sur validate"}))
+        //     }
+        // );
         //this.router.post('/validate',this.ct.validate )
         this.router.post('/validate',async (req,res)=>{
+            console.log("start validate request");
             const response = await this.ct.validate(req,res);
-            console.log("response ", response);
+            //console.log("response Data",responseData.body);
             res.status(response.status||200).json(response.data);
+            // if (responseData.status){
+            //     return responseData;
+            //     //res.status(200).json(responseData);
+            // }
+            // else{
+            //     res.status(500).json({"message":"erreur a la validation"});
+            // }
+            //console.log("auth router validate response ", response);
+            //res.status(response.status||200).json(response.data);
         } );
 
         this.router.get('/',authorize(Role.Admin),this.ct.getAllUsers);

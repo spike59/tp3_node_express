@@ -23,10 +23,12 @@ class AuthController {
             const payload = {mail: req.body.email, role: "User", password: req.body.password};
             const token = jwt.sign(payload, secret, { expiresIn: '1d' });
             //SEND MAIL
+            const strToken = encodeURIComponent(token);
+            const url = "http://localhost:3000/account/validation?t=" + strToken;
             const html = 
             `
             <b>Confirmez votre inscription : </b>
-            <a href="http://localhost:3000/account/validation?t=${encodeURIComponent(token)}" target="_blank">Confirmer</a>
+            <a href="${url}" target="_blank">Confirmer</a>
             
             `;
             let mailerService = new MailerService();
@@ -34,15 +36,17 @@ class AuthController {
             console.log("mailed",mailed);
             if (mailed)
             {
-                return res.status(200).json({ message: 'ok go' });
+                console.log("mailed");
+                return res.status(200).json({ message: 'creation de compte en attente',token:strToken });
             }
             
         }
         return res.status(404).json({ message: 'utilisateur existant' });
     }
 
-    validate = async (req,res) => {
-        if(req.method !== 'POST') return {status:405};
+    async validate (req,res){
+        console.log("auth controller validate");
+        //if(req.method !== 'POST') return {status:405};
         
         const token = req.body.token;
         let payload;
@@ -50,7 +54,8 @@ class AuthController {
             payload = jwt.verify(token, secret); 
         }
         catch{
-            return {data:{completed:false, message:"Une erreur est survenue ..."}};
+            //return {data:{completed:false, message:"Une erreur est survenue ..."}};
+            return res.status(400).json({message:"probleme de payload"})
         }
         if(payload){
             //const service = new UserServiceClass();
@@ -59,12 +64,20 @@ class AuthController {
             const password = (await bcrypt.hash(payload.password,10)).replace(HASH_PREFIX,'')
             const user = await usersService.insert({email:payload.mail, password, role:payload.role}).catch(e=>{
                 console.log("ERRRO SQL INSERT USER",e);
+                return res.status(400).json({message:"erreur sql"})
+                
             });
-            return user ? 
-                {data:{completed:true, message:"Bienvenu sur shoponline ! Votre compte est maintennant actif, vous pouvez vous connecter."}} :
-                {data:{completed:false, message:"Une erreur est survenue ..."}};
+            console.log("user id",user.id);
+            
+            return user ?
+                res.status(200).json({user_id:user.id}):
+                res.status(400).json({message:"user undefined"})
+            // return user ? 
+            //     {data:{completed:true, message:"Bienvenu sur shoponline ! Votre compte est maintennant actif, vous pouvez vous connecter."}} :
+            //     {data:{completed:false, message:"Une erreur est survenue ..."}};
         }
-        return {data:{completed:false, message:"L'activation de votre compte a expiré, réinscrivez vous ..."}};
+        return res.status(400).json({message:"L'activation de votre compte a expiré, réinscrivez vous ..."})
+        //return {data:{completed:false, message:"L'activation de votre compte a expiré, réinscrivez vous ..."}};
     }
 
     
